@@ -31,14 +31,20 @@ namespace Vidly.Controllers
         {
             if (!pageIndex.HasValue)
                 pageIndex = 1;
-            
-            if (string.IsNullOrWhiteSpace(sortBy))
-            {
-                return Content(string.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
-            }
-        }
-        
 
-        
+            if (string.IsNullOrWhiteSpace(sortBy))
+                sortBy = "Name";
+
+            return Content(string.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
+        }
+
+        public ActionResult ByReleaseDate(int year, int month)
+        {
+            return Content(year + "/" + month);
+        }
+
+
+
+
     }
 }
