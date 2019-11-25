@@ -14,7 +14,19 @@ namespace Vidly.Controllers
         {
             var movie = new Movie() { Name = "Shrek!" };
 
-            return View(movie);
+            var customers = new List<Customer>
+            {
+                new Customer {Name = "Customer 1"},
+                new Customer {Name = "Customer 2"}
+            };
+
+            var viewModel = new RandomMovieViewModel
+            {
+                Movie = movie,
+                customers = customers
+            };
+
+            return View(viewModel);
             //return Content("HEllo world");
             //return HttpNotFound();
             //return new EmptyResult();
@@ -25,7 +37,6 @@ namespace Vidly.Controllers
         {
             return Content("id=" + id);
         }
-
         //movies
         public ActionResult Index(int? pageIndex, string sortBy)
         {
@@ -38,6 +49,8 @@ namespace Vidly.Controllers
             return Content(string.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
         }
 
+
+        [Route("movies/released/{year}/{month:regex(\\d{2}):range(1, 12)}")]
         public ActionResult ByReleaseDate(int year, int month)
         {
             return Content(year + "/" + month);
